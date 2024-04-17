@@ -12,3 +12,5 @@ export async function AuthButtonServer() {
 
   return <AuthButton session={session} />;
 }
+
+//here is the server logic, if exist user session or not

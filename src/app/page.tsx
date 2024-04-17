@@ -1,10 +1,18 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"; // Creando un cliente de supabase en un componente de servidor
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { AuthButtonServer } from "./components/auth-button-server";
 
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
   const { data: posts } = await supabase.from("posts").select();
+
+  if (session === null) {
+    redirect("/login");
+  }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <AuthButtonServer />
