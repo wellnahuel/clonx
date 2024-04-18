@@ -8,11 +8,17 @@ export default async function Home() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  const { data: posts } = await supabase.from("posts").select();
+  const { data: posts } = await supabase.from("posts").select("*, users(*)");
+
+  console.log(posts);
 
   if (session === null) {
     redirect("/login");
   }
+
+  /* const contentList = posts?.map((post) => (
+    <div key={post.id}>{post.content}</div>
+  )); */
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <AuthButtonServer />
