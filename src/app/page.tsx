@@ -9,7 +9,9 @@ export default async function Home() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  const { data: posts } = await supabase.from("posts").select("*, users(*)");
+  const { data: posts } = await supabase
+    .from("posts")
+    .select("*, user:users(*)");
 
   console.log(posts);
 
@@ -24,13 +26,13 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <AuthButtonServer />
       {posts?.map((post) => {
+        const { id, content, user } = post;
+
         const {
-          id,
-          user_name: userName,
-          name: userFullName,
           avatar_url: avatarUrl,
-          content: content,
-        } = post;
+          name: userFullName,
+          user_name: userName,
+        } = user;
 
         return (
           <CardPost
