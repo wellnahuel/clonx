@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"; // 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { AuthButtonServer } from "./components/auth-button-server";
+import { CardPost } from "./components/card-post";
 
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies });
@@ -22,7 +23,25 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <AuthButtonServer />
-      Hola X<pre>{JSON.stringify(posts, null, 2)}</pre>
+      {posts?.map((post) => {
+        const {
+          id,
+          user_name: userName,
+          name: userFullName,
+          avatar_url: avatarUrl,
+          content: content,
+        } = post;
+
+        return (
+          <CardPost
+            key={id}
+            userName={userName}
+            userFullName={userFullName}
+            avatarUrl={avatarUrl}
+            content={content}
+          />
+        );
+      })}
     </main>
   );
 }
