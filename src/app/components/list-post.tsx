@@ -1,6 +1,7 @@
+import { type Post } from "@/app/types/posts";
 import { CardPost } from "./card-post";
 
-export function ListPost({ posts }) {
+export function ListPost({ posts }: { posts: Post[] | null }) {
   return (
     <>
       {posts?.map((post) => {
