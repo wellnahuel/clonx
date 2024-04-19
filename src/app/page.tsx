@@ -2,7 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"; // 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { AuthButtonServer } from "./components/auth-button-server";
-import { CardPost } from "./components/card-post";
+import { ListPost } from "./components/list-post";
 
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies });
@@ -23,27 +23,11 @@ export default async function Home() {
     <div key={post.id}>{post.content}</div>
   )); */
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <AuthButtonServer />
-      {posts?.map((post) => {
-        const { id, content, user } = post;
-
-        const {
-          avatar_url: avatarUrl,
-          name: userFullName,
-          user_name: userName,
-        } = user;
-
-        return (
-          <CardPost
-            key={id}
-            userName={userName}
-            userFullName={userFullName}
-            avatarUrl={avatarUrl}
-            content={content}
-          />
-        );
-      })}
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <section className="max-w-[900px] mx-auto border-l border-r border-white/20 min-h-screen">
+        <AuthButtonServer />
+        <ListPost posts={posts} />
+      </section>
     </main>
   );
 }

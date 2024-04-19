@@ -7,6 +7,7 @@ import {
   CardHeader,
   Link,
 } from "@nextui-org/react";
+import { IconHeart, IconMessage, IconRepeat } from "@tabler/icons-react";
 import { useState } from "react";
 
 export function CardPost({
@@ -23,17 +24,17 @@ export function CardPost({
   const [isFollowed, setIsFollowed] = useState(false);
 
   return (
-    <Card className="shadow-none bg-transparent hover:bg-slate-800 transition border-b rounded-none cursor-pointer border-white/20">
+    <Card className=" shadow-none bg-transparent hover:bg-slate-800 transition border-b rounded-none cursor-pointer border-white/20">
       <CardHeader className="justify-between">
         <div className="flex gap-2">
           <Link href={`/${userName}`}>
-            <Avatar radius="full" size="sm" src={avatarUrl} />
+            <Avatar className=" w-20" radius="full" size="sm" src={avatarUrl} />
           </Link>
           <div className="flex flex-col gap-1 items-start justify-center">
             <h4 className="text-small font-semibold leading-none text-default-600">
               {userFullName}
             </h4>
-            <h5 className="text-small tracking-tight text-default-400">
+            <h5 className="text-xs tracking-tight text-default-400">
               {userName}
             </h5>
           </div>
@@ -42,7 +43,11 @@ export function CardPost({
       <CardBody className="px-3 py-0 text-small text-white bg-transparent">
         <p>{content}</p>
       </CardBody>
-      <CardFooter className="gap-3"></CardFooter>
+      <CardFooter className="gap-3">
+        <IconMessage className="w-5 h-5" />
+        <IconHeart className="w-5 h-5" />
+        <IconRepeat className="w-5 h-5" />
+      </CardFooter>
     </Card>
   );
 }
