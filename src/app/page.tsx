@@ -5,6 +5,7 @@ import { AuthButtonServer } from "./components/auth-button-server";
 import { ComposePost } from "./components/compose-post";
 import { ListPost } from "./components/list-post";
 import { type Database } from "./types/database";
+import { Post } from "./types/posts";
 
 export default async function Home() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -22,6 +23,10 @@ export default async function Home() {
     redirect("/login");
   }
 
+  // Filtrar los posts que tienen user como null
+  const filteredPosts: Post[] = (posts || []).filter(
+    (post): post is Post => post.user !== null
+  );
   /* const contentList = posts?.map((post) => (
     <div key={post.id}>{post.content}</div>
   )); */
@@ -29,7 +34,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between">
       <section className="max-w-[900px] w-full mx-auto border-l border-r border-white/20 min-h-screen">
         <ComposePost userAvatarUrl={session.user?.user_metadata?.avatar_url} />
-        <ListPost posts={posts} />
+        <ListPost posts={filteredPosts} />
       </section>
       <AuthButtonServer />
     </main>
