@@ -24,11 +24,11 @@ export function CardPost({
   const [isFollowed, setIsFollowed] = useState(false);
 
   return (
-    <Card className=" shadow-none bg-transparent hover:bg-slate-800 transition border-b rounded-none cursor-pointer border-white/20">
+    <Card className=" shadow-none bg-transparent hover:bg-slate-800 transition border-b rounded-none cursor-pointer border-white/20 p-5">
       <CardHeader className="justify-between">
         <div className="flex gap-2">
           <Link href={`/${userName}`}>
-            <Avatar className=" w-20" radius="full" size="sm" src={avatarUrl} />
+            <Avatar className=" w-10" radius="full" size="sm" src={avatarUrl} />
           </Link>
           <div className="flex flex-col gap-1 items-start justify-center">
             <h4 className="text-small font-semibold leading-none text-default-600">

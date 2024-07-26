@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"; // 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { AuthButtonServer } from "./components/auth-button-server";
+import { ComposePost } from "./components/compose-post";
 import { ListPost } from "./components/list-post";
 import { type Database } from "./types/database";
 
@@ -12,7 +13,8 @@ export default async function Home() {
   } = await supabase.auth.getSession();
   const { data: posts } = await supabase
     .from("posts")
-    .select("*, user:users(*)");
+    .select("*, user:users(*)")
+    .order("created_at", { ascending: false });
 
   console.log(posts);
 
@@ -25,10 +27,11 @@ export default async function Home() {
   )); */
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <section className="max-w-[900px] mx-auto border-l border-r border-white/20 min-h-screen">
-        <AuthButtonServer />
+      <section className="max-w-[900px] w-full mx-auto border-l border-r border-white/20 min-h-screen">
+        <ComposePost userAvatarUrl={session.user?.user_metadata?.avatar_url} />
         <ListPost posts={posts} />
       </section>
+      <AuthButtonServer />
     </main>
   );
 }
