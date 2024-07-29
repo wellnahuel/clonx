@@ -1,4 +1,4 @@
-// next.config.js
+/* // next.config.js
 module.exports = {
     images: {
         remotePatterns: [
@@ -10,4 +10,4 @@ module.exports = {
             },
         ],
     },
-};
+}; */

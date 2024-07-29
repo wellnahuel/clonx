@@ -7,6 +7,8 @@ import { ListPost } from "./components/list-post";
 import { type Database } from "./types/database";
 import { Post } from "./types/posts";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const supabase = createServerComponentClient<Database>({ cookies });
   const {
