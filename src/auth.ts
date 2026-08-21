@@ -18,19 +18,21 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         const avatarUrl = user.image ?? profile?.avatar_url ?? null;
 
         const [existing] = await sql`
-          SELECT id FROM users WHERE user_name = ${userName}
-            OR (${email} IS NOT NULL AND email = ${email}) LIMIT 1`;
+          SELECT id FROM users
+          WHERE user_name = ${userName}::text
+             OR email = ${email}::text
+          LIMIT 1`;
 
         let id: string;
         if (existing) {
           id = existing.id;
           await sql`
-            UPDATE users SET name = ${user.name}, avatar_url = ${avatarUrl},
-              email = COALESCE(email, ${email}) WHERE id = ${id}`;
+            UPDATE users SET name = ${user.name}::text, avatar_url = ${avatarUrl}::text,
+              email = COALESCE(email, ${email}::text) WHERE id = ${id}::uuid`;
         } else {
           const [inserted] = await sql`
             INSERT INTO users (id, name, user_name, avatar_url, email)
-            VALUES (gen_random_uuid(), ${user.name}, ${userName}, ${avatarUrl}, ${email})
+            VALUES (gen_random_uuid(), ${user.name}::text, ${userName}::text, ${avatarUrl}::text, ${email}::text)
             ON CONFLICT (user_name) DO UPDATE
               SET name = EXCLUDED.name, avatar_url = EXCLUDED.avatar_url,
                 email = COALESCE(users.email, EXCLUDED.email)
