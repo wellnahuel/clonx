@@ -5,20 +5,14 @@ export function ListPost({ posts }: { posts: Post[] | null }) {
   return (
     <>
       {posts?.map((post) => {
-        const { id, content, user } = post;
-
-        const {
-          avatar_url: avatarUrl,
-          name: userFullName,
-          user_name: userName,
-        } = user;
+        const { id, content, avatar_url, name: userFullName, user_name: userName } = post;
 
         return (
           <CardPost
             key={id}
             userName={userName}
             userFullName={userFullName}
-            avatarUrl={avatarUrl}
+            avatarUrl={avatar_url ?? ""}
             content={content}
           />
         );

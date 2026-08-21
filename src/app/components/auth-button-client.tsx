@@ -1,41 +1,19 @@
 "use client";
 
-import {
-  createClientComponentClient,
-  type Session,
-} from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import { signIn, signOut, useSession } from "next-auth/react";
+import type { Session } from "next-auth";
 
-export function AuthButton({ session }: { session: Session | null }) {
-  //const [session, setSession] = useState<Session | null>(null); // we delete this state because we pass session in the params
-  const supabase = createClientComponentClient();
-  const router = useRouter();
+export function AuthButton({ session: serverSession }: { session?: Session | null }) {
+  const { data: session } = useSession();
+  const currentSession = session ?? serverSession ?? null;
 
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: "https://clonx.vercel.app/auth/callback",
-      },
-    });
-  };
+  const handleSignIn = () => signIn("github");
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-  };
-
-  /* useEffect(() => {
-    const getSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      setSession(data.session);
-    };
-    getSession();
-  }, []); */ //remove this useEffect and pass session for params
+  const handleSignOut = () => signOut();
 
   return (
     <header>
-      {session === null ? (
+      {currentSession === null ? (
         <button
           type="button"
           className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2"
