@@ -1,7 +1,6 @@
-//import { Avatar } from "@nextui-org/react";
 "use client";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, type ReactElement } from "react";
 import { addPost } from "../actions/add-post-action";
 import { ComposePostButton } from "./compose-post-button";
 
@@ -9,7 +8,7 @@ interface Props {
   userAvatarUrl: string;
 }
 
-export function ComposePost({ userAvatarUrl }: Props): JSX.Element {
+export function ComposePost({ userAvatarUrl }: Props): ReactElement {
   const formRef = useRef<HTMLFormElement>(null);
   return (
     <form
