@@ -1,8 +1,17 @@
-import { type Database } from "../types/database";
+export type User = {
+  id: string;
+  name: string;
+  user_name: string;
+  avatar_url: string | null;
+  created_at: string;
+};
 
-type PostEntity = Database["public"]["Tables"]["posts"]["Row"];
-type UserEntity = Database["public"]["Tables"]["users"]["Row"];
-
-export type Post = PostEntity & {
-  user: UserEntity;
+export type Post = {
+  id: string;
+  content: string;
+  created_at: string;
+  user_id: string;
+  name: string;
+  user_name: string;
+  avatar_url: string | null;
 };
