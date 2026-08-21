@@ -26,8 +26,8 @@ export default async function Home() {
   }
 
   // Filtrar los posts que tienen user como null
-  const filteredPosts: Post[] = (posts || []).filter(
-    (post): post is Post => post.user !== null
+  const filteredPosts: Post[] = ((posts ?? []) as Post[]).filter(
+    (post) => post.user !== null
   );
   /* const contentList = posts?.map((post) => (
     <div key={post.id}>{post.content}</div>
