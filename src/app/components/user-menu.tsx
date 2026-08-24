@@ -24,7 +24,7 @@ export function UserMenu({ session }: { session: Session }) {
         <Avatar size="sm" className="w-8 rounded-full">
           <Avatar.Image src={user.avatarUrl ?? ""} />
         </Avatar>
-        <span className="hidden sm:inline text-sm font-semibold text-default-700">
+        <span className="hidden sm:inline text-sm font-semibold text-default-700 transition-colors hover:text-default-900">
           {user.name}
         </span>
       </a>

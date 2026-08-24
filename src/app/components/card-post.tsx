@@ -73,13 +73,13 @@ export function CardPost({
           href={`https://github.com/${author.user_name}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 group"
         >
           <Avatar size="sm" className="w-10 rounded-full">
             <Avatar.Image src={author.avatar_url ?? ""} />
           </Avatar>
           <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">
+            <h4 className="text-small font-semibold leading-none text-default-600 transition-colors group-hover:text-default-900">
               {author.name}
             </h4>
             <h5 className="text-xs tracking-tight text-default-400">
@@ -97,7 +97,7 @@ export function CardPost({
           onClick={handleToggleFavorite}
           disabled={!interactive || isPending}
           aria-label={liked ? "Quitar de favoritos" : "Marcar como favorito"}
-          className="flex items-center gap-1.5 transition hover:opacity-80 disabled:opacity-40 disabled:pointer-events-none"
+          className="flex items-center gap-1.5 text-default-500 transition-colors hover:text-red-500 disabled:opacity-40 disabled:pointer-events-none"
         >
           {liked ? (
             <IconHeartFilled className="w-5 h-5 text-red-500" />
@@ -111,7 +111,7 @@ export function CardPost({
           onClick={handleRetweet}
           disabled={!interactive || isPending}
           aria-label="Retweetear"
-          className="flex items-center gap-1.5 transition hover:opacity-80 disabled:opacity-40 disabled:pointer-events-none"
+          className="flex items-center gap-1.5 text-default-500 transition-colors hover:text-green-500 disabled:opacity-40 disabled:pointer-events-none"
         >
           <IconRepeat className="w-5 h-5" />
         </button>
