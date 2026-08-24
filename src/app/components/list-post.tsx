@@ -4,14 +4,21 @@ import { CardPost } from "./card-post";
 export function ListPost({
   posts,
   currentUserId,
+  currentUserAvatarUrl,
 }: {
   posts: Post[] | null;
   currentUserId?: string | null;
+  currentUserAvatarUrl?: string | null;
 }) {
   return (
     <>
       {posts?.map((post) => (
-        <CardPost key={post.id} post={post} currentUserId={currentUserId} />
+        <CardPost
+          key={post.id}
+          post={post}
+          currentUserId={currentUserId}
+          currentUserAvatarUrl={currentUserAvatarUrl}
+        />
       ))}
     </>
   );

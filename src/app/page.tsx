@@ -51,6 +51,7 @@ export default async function Home() {
     JOIN users u ON u.id = p.user_id
     LEFT JOIN posts rp ON rp.id = p.retweet_of_id
     LEFT JOIN users ru ON ru.id = rp.user_id
+    WHERE p.reply_to_id IS NULL
     ORDER BY p.created_at DESC`) as unknown as FeedRow[];
 
   const posts: Post[] = rows.map((row) => ({
@@ -74,7 +75,51 @@ export default async function Home() {
           avatar_url: row.retweet_of_avatar_url,
         }
       : null,
+    reply_to_id: null,
+    replies: [],
   }));
+
+  if (posts.length > 0) {
+    const postIds = posts.map((p) => p.id);
+
+    type ReplyRow = {
+      id: string;
+      content: string;
+      created_at: string;
+      user_id: string;
+      name: string;
+      user_name: string;
+      avatar_url: string | null;
+      reply_to_id: string;
+    };
+
+    const replyRows = (await sql`
+      SELECT r.id, r.content, r.created_at, r.user_id,
+             u.name, u.user_name, u.avatar_url, r.reply_to_id
+      FROM posts r
+      JOIN users u ON u.id = r.user_id
+      WHERE r.reply_to_id IN (${postIds})
+      ORDER BY r.created_at ASC`) as unknown as ReplyRow[];
+
+    const repliesByPost = new Map<string, Post["replies"]>();
+    for (const row of replyRows) {
+      const list = repliesByPost.get(row.reply_to_id) ?? [];
+      list.push({
+        id: row.id,
+        content: row.content,
+        created_at: row.created_at,
+        user_id: row.user_id,
+        name: row.name,
+        user_name: row.user_name,
+        avatar_url: row.avatar_url,
+      });
+      repliesByPost.set(row.reply_to_id, list);
+    }
+
+    for (const post of posts) {
+      post.replies = repliesByPost.get(post.id) ?? [];
+    }
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
@@ -84,7 +129,11 @@ export default async function Home() {
       </div>
       <section className="max-w-[900px] w-full mx-auto border-l border-r border-black/15 dark:border-white/20 min-h-screen">
         <ComposePost userAvatarUrl={session.user.avatarUrl ?? ""} />
-        <ListPost posts={posts} currentUserId={uid} />
+        <ListPost
+          posts={posts}
+          currentUserId={uid}
+          currentUserAvatarUrl={session.user.avatarUrl ?? ""}
+        />
       </section>
     </main>
   );
