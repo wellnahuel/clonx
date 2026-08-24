@@ -19,6 +19,12 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@layer components {
+  .avatar {
+    @apply rounded-full;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

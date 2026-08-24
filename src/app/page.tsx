@@ -79,7 +79,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between">
       <section className="max-w-[900px] w-full mx-auto border-l border-r border-white/20 min-h-screen">
         <ComposePost userAvatarUrl={session.user.avatarUrl ?? ""} />
-        <ListPost posts={posts} />
+        <ListPost posts={posts} currentUserId={uid} />
       </section>
       <AuthButtonServer />
     </main>

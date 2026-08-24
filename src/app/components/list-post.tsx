@@ -1,22 +1,18 @@
 import { type Post } from "@/app/types/posts";
 import { CardPost } from "./card-post";
 
-export function ListPost({ posts }: { posts: Post[] | null }) {
+export function ListPost({
+  posts,
+  currentUserId,
+}: {
+  posts: Post[] | null;
+  currentUserId?: string | null;
+}) {
   return (
     <>
-      {posts?.map((post) => {
-        const { id, content, avatar_url, name: userFullName, user_name: userName } = post;
-
-        return (
-          <CardPost
-            key={id}
-            userName={userName}
-            userFullName={userFullName}
-            avatarUrl={avatar_url ?? ""}
-            content={content}
-          />
-        );
-      })}
+      {posts?.map((post) => (
+        <CardPost key={post.id} post={post} currentUserId={currentUserId} />
+      ))}
     </>
   );
 }
