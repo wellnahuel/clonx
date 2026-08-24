@@ -98,7 +98,7 @@ export default async function Home() {
              u.name, u.user_name, u.avatar_url, r.reply_to_id
       FROM posts r
       JOIN users u ON u.id = r.user_id
-      WHERE r.reply_to_id IN (${postIds})
+      WHERE r.reply_to_id = ANY(${postIds}::uuid[])
       ORDER BY r.created_at ASC`) as unknown as ReplyRow[];
 
     const repliesByPost = new Map<string, Post["replies"]>();
