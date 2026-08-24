@@ -4,6 +4,7 @@ import { sql } from "@/lib/neon";
 import { AuthButtonServer } from "./components/auth-button-server";
 import { ComposePost } from "./components/compose-post";
 import { ListPost } from "./components/list-post";
+import { ThemeToggle } from "./components/theme-toggle";
 import { type Post } from "./types/posts";
 
 export const dynamic = "force-dynamic";
@@ -77,7 +78,10 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <section className="max-w-[900px] w-full mx-auto border-l border-r border-white/20 min-h-screen">
+      <div className="w-full max-w-[900px] mx-auto flex items-center justify-end gap-2 p-3 border-b border-black/15 dark:border-white/20">
+        <ThemeToggle />
+      </div>
+      <section className="max-w-[900px] w-full mx-auto border-l border-r border-black/15 dark:border-white/20 min-h-screen">
         <ComposePost userAvatarUrl={session.user.avatarUrl ?? ""} />
         <ListPost posts={posts} currentUserId={uid} />
       </section>

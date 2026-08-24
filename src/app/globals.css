@@ -4,9 +4,17 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+  color-scheme: light;
+}
+
+.dark {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
+  color-scheme: dark;
 }
 
 body {

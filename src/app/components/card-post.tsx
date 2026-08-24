@@ -54,7 +54,7 @@ export function CardPost({
   };
 
   return (
-    <Card className="shadow-none bg-transparent hover:bg-slate-800 transition border-b rounded-none border-white/20 p-5">
+    <Card className="shadow-none bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-800 transition border-b rounded-none border-black/15 dark:border-white/20 p-5">
       {post.retweet_of ? (
         <div className="flex items-center gap-2 pb-3 text-xs text-default-400">
           <IconRepeat className="w-4 h-4" />
@@ -88,7 +88,7 @@ export function CardPost({
           </div>
         </Link>
       </div>
-      <div className="px-1 py-3 text-small text-white">
+      <div className="px-1 py-3 text-small text-black dark:text-white">
         <p>{post.retweet_of?.content ?? post.content}</p>
       </div>
       <div className="flex items-center gap-6">

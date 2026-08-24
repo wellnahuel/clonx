@@ -16,7 +16,7 @@ export function ComposePost({ userAvatarUrl }: Props): ReactElement {
         await addPost(formData);
         formRef.current?.reset();
       }}
-      className="flex flex-row gap-x-4 w-full p-3 border-b border-white/20"
+      className="flex flex-row gap-x-4 w-full p-3 border-b border-black/15 dark:border-white/20"
       ref={formRef}
     >
       <Image
@@ -31,7 +31,7 @@ export function ComposePost({ userAvatarUrl }: Props): ReactElement {
           name="post"
           id="post"
           rows={4}
-          className="w-full text-2xl bg-black placeholder-gray-500 p-2"
+          className="w-full text-2xl bg-transparent text-black dark:text-white placeholder-gray-500 p-2"
           placeholder="What is happening?!"
         />
         <ComposePostButton />
