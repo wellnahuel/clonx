@@ -21,7 +21,7 @@ export function UserMenu({ session }: { session: Session }) {
         className="flex items-center gap-2"
         title={`Ver perfil de ${user.userName} en GitHub`}
       >
-        <Avatar size="sm" className="w-8 rounded-full">
+        <Avatar size="sm" className="rounded-full">
           <Avatar.Image src={user.avatarUrl ?? ""} />
         </Avatar>
         <span className="hidden sm:inline text-sm font-semibold text-default-700 transition-colors hover:text-default-900">

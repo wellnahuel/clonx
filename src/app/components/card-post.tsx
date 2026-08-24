@@ -89,7 +89,7 @@ export function CardPost({
           rel="noopener noreferrer"
           className="flex items-center gap-2 group"
         >
-          <Avatar size="sm" className="w-10 rounded-full">
+          <Avatar size="sm" className="rounded-full">
             <Avatar.Image src={author.avatar_url ?? ""} />
           </Avatar>
           <div className="flex flex-col gap-1 items-start justify-center">
@@ -148,7 +148,7 @@ export function CardPost({
           action={handleReplySubmit}
           className="mt-3 flex gap-3 items-start border rounded-2xl p-3 border-black/15 dark:border-white/20"
         >
-          <Avatar size="sm" className="w-8 rounded-full">
+          <Avatar size="sm" className="rounded-full">
             <Avatar.Image src={currentUserAvatarUrl ?? ""} />
           </Avatar>
           <textarea
@@ -189,7 +189,7 @@ export function CardPost({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Avatar size="sm" className="w-7 rounded-full">
+                <Avatar size="sm" className="rounded-full">
                   <Avatar.Image src={reply.avatar_url ?? ""} />
                 </Avatar>
               </Link>
