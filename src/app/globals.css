@@ -28,7 +28,8 @@ body {
 }
 
 @layer components {
-  .avatar {
+  .avatar,
+  .avatar__image {
     @apply rounded-full;
   }
 }

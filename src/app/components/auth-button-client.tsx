@@ -7,7 +7,7 @@ export function AuthButton({ session: serverSession }: { session?: Session | nul
   const { data: session } = useSession();
   const currentSession = session ?? serverSession ?? null;
 
-  const handleSignIn = () => signIn("github");
+  const handleSignIn = () => signIn("github", { redirectTo: "/" });
 
   const handleSignOut = () => signOut();
 
